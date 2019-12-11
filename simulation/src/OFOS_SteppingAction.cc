@@ -138,7 +138,8 @@ void OFOS_SteppingAction::UserSteppingAction(const G4Step *theStep) {
         /// not able to store photons in output storage >>> do nothing
         if (!global_ntuples_ptr) continue;
 
-        /// Scintillation and Cherenkov light are emitted only in the case of a EM process
+        /// Scintillation and Cherenkov light are emitted only in the case of a EM process. The contents of the switch below only modify the truth branch
+        /// but not the observed branch.
         if (proc_type != G4ProcessType::fElectromagnetic) continue;
 
         switch (proc_subtype) {
@@ -374,8 +375,7 @@ void OFOS_SteppingAction::UserSteppingAction(const G4Step *theStep) {
                 pp_proc_subtype == G4EmProcessSubType::fPhotoElectricEffect ||  // 12
                 pp_proc_subtype == G4EmProcessSubType::fComptonScattering ||    // 13
                 pp_proc_subtype == G4EmProcessSubType::fAnnihilation ||         // 5
-                pp_proc_subtype == G4EmProcessSubType::fIonisation ||           // 2
-                pp_proc_subtype == G4EmProcessSubType::fCerenkov)               // 21
+                pp_proc_subtype == G4EmProcessSubType::fIonisation)             // 2
             {
                 // TODO : why annihilation is never printed out in the case of a positron???
                 /// At the moment annihilations are stored thanks to the TrackingAction invoked

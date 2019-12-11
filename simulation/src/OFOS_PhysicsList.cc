@@ -317,11 +317,11 @@ void OFOS_PhysicsList::ConstructOp()
                      theScintProcess -> SetScintillationYieldFactor(1.);
 
 
-    auto*     theCerenkovProcess = new G4Cerenkov("Cerenkov");
-                    theCerenkovProcess->SetTrackSecondariesFirst(true);
-                    /// affect the step definition, not the cherenkov yield
-                    theCerenkovProcess->SetMaxNumPhotonsPerStep(30);
-                    theCerenkovProcess->SetMaxBetaChangePerStep(10.0);
+//    auto*     theCerenkovProcess = new G4Cerenkov("Cerenkov");
+//                    theCerenkovProcess->SetTrackSecondariesFirst(true);
+//                    /// affect the step definition, not the cherenkov yield
+//                    theCerenkovProcess->SetMaxNumPhotonsPerStep(30);
+//                    theCerenkovProcess->SetMaxBetaChangePerStep(10.0);
 
 
     auto*        theRayleighScatteringProcess = new G4OpRayleigh();
@@ -359,11 +359,11 @@ void OFOS_PhysicsList::ConstructOp()
         G4ProcessManager*     pmanager     = particle->GetProcessManager();
         G4String              particleName = particle->GetParticleName();
         
-        if (theCerenkovProcess->IsApplicable(*particle)) 
-        {
-            pmanager->AddProcess(theCerenkovProcess);
-            pmanager->SetProcessOrdering(theCerenkovProcess,idxPostStep);
-        }
+//        if (theCerenkovProcess->IsApplicable(*particle))
+//        {
+//            pmanager->AddProcess(theCerenkovProcess);
+//            pmanager->SetProcessOrdering(theCerenkovProcess,idxPostStep);
+//        }
         if (theScintProcess->IsApplicable(*particle)) 
         {
             pmanager->AddProcess(theScintProcess);
