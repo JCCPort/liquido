@@ -1,4 +1,6 @@
 #include <algorithm>
+#include <G4LogicalSkinSurface.hh>
+#include <G4OpticalSurface.hh>
 
 #include "G4Material.hh"
 #include "G4NistManager.hh"
@@ -742,6 +744,17 @@ OFOS_DetectorConstruction::build_geom() {
     auto *ls_vessel_l = new G4LogicalVolume(ls_vessel_s, black_acrylic, "LsVessel");
     G4VPhysicalVolume *ls_vessel_p = new G4PVPlacement(nullptr, G4ThreeVector(), ls_vessel_l, "LsVessel", buffer_l,
                                                        false, 0, fCheckOverlaps);
+
+
+    // Reflective coating on LS walls
+    auto *coating = new G4OpticalSurface("Coating");
+    coating->SetType(dielectric_metal);
+    coating->SetFinish(polished);
+    coating->SetModel(glisur);
+    auto *skinCoating = new G4LogicalSkinSurface("skinCoating", ls_vessel_l, coating);
+    auto *coatingProperties = new G4MaterialPropertiesTable();
+    coatingProperties->AddConstProperty("REFLECTIVITY", 0.99);
+    coating->SetMaterialPropertiesTable(coatingProperties);
 
 
     // LS
