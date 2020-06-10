@@ -1,6 +1,4 @@
 #include <algorithm>
-#include <G4LogicalSkinSurface.hh>
-#include <G4OpticalSurface.hh>
 
 #include "G4Material.hh"
 #include "G4NistManager.hh"
@@ -770,6 +768,7 @@ OFOS_DetectorConstruction::build_geom() {
                                                        false, 0, fCheckOverlaps);
 
 
+<<<<<<< HEAD
     // Reflective coating on LS walls
     auto *coating = new G4OpticalSurface("Coating");
     coating->SetType(dielectric_metal);
@@ -781,6 +780,8 @@ OFOS_DetectorConstruction::build_geom() {
     coating->SetMaterialPropertiesTable(coatingProperties);
 
 
+=======
+>>>>>>> parent of d2df54e... Added reflective coating to vessel walls
     // LS
     auto *ls_s = new G4Box("LS", 0.5 * ls_x_size, 0.5 * ls_y_size, 0.5 * ls_z_size);
     auto *ls_l = new G4LogicalVolume(ls_s, ls, "LS");

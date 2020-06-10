@@ -11,7 +11,7 @@
 
 /random/setSeeds 2355467 2355467
 
-/OFOS/ls/scattering 0.5 mm
+/OFOS/ls/scattering 0.5 m
 /OFOS/ls/absorption 5.0 m
 # birks constant in mm/MeV
 /OFOS/ls/birks 1e-9 
@@ -19,11 +19,12 @@
 /OFOS/ls/loading_fraction 1e-9
 /OFOS/ls/loading_material Pb
 # number of photons per MeV
-/OFOS/ls/lightyield 100
+/OFOS/ls/lightyield 10000
 
 
-/OFOS/geom/num_ru_x 20
-/OFOS/geom/num_ru_y 20
+
+/OFOS/geom/num_ru_x 200
+/OFOS/geom/num_ru_y 200
 /OFOS/geom/num_ru_z 2
 
 /OFOS/geom/ru_xy_pitch 1.0 cm
@@ -42,4 +43,4 @@
 
 /OFOS/detector/build
 
-/run/beamOn 1
+/run/beamOn 10
