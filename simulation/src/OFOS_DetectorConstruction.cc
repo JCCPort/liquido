@@ -769,6 +769,7 @@ OFOS_DetectorConstruction::build_geom() {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Reflective coating on LS walls
     auto *coating = new G4OpticalSurface("Coating");
     coating->SetType(dielectric_metal);
@@ -780,6 +781,8 @@ OFOS_DetectorConstruction::build_geom() {
     coating->SetMaterialPropertiesTable(coatingProperties);
 
 
+=======
+>>>>>>> parent of d2df54e... Added reflective coating to vessel walls
 =======
 >>>>>>> parent of d2df54e... Added reflective coating to vessel walls
     // LS
