@@ -228,6 +228,30 @@ void OFOS_DetectorConstruction::define_materials() {
              16 * m,
              16 * m};
 
+//	G4double fib_att_len[10] =
+//		{0.01 * mm,
+//		 0.01 * mm,
+//		 0.01 * mm,
+//		 0.01 * mm,
+//		 0.01 * mm,
+//		 0.01 * mm,
+//		 0.01 * mm,
+//		 0.01 * mm,
+//		 0.01 * mm,
+//		 0.01 * mm};
+
+//	G4double core_att_len[10] =
+//		{(0.7*4) * mm,
+//		 (0.7*4) * mm,
+//		 (0.7*4) * mm,
+//		 (0.7*4) * mm,
+//		 (0.7*4) * mm,
+//		 (0.7*4) * mm,
+//		 (0.7*4) * mm,
+//		 (0.7*4) * mm,
+//		 (0.7*4) * mm,
+//		 (0.7*4) * mm};
+
     G4double core_att_len[10] =
             {7.0E-1 * mm,
              7.0E-1 * mm,
@@ -753,7 +777,7 @@ OFOS_DetectorConstruction::build_geom() {
     coating->SetModel(glisur);
     auto *skinCoating = new G4LogicalSkinSurface("skinCoating", ls_vessel_l, coating);
     auto *coatingProperties = new G4MaterialPropertiesTable();
-    coatingProperties->AddConstProperty("REFLECTIVITY", 0.99);
+    coatingProperties->AddConstProperty("REFLECTIVITY", 0.0);
     coating->SetMaterialPropertiesTable(coatingProperties);
 
 

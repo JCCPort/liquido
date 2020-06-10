@@ -11,12 +11,12 @@ OFOS_OutputNtuples::OFOS_OutputNtuples(const char *h_name, const char *h_title, 
         is_ni_overflow_(false),
         is_evt_contained_(true),
 
-        tot_en_dep_(static_cast<float>(0.)),
-        ion_en_in_ls_(static_cast<float>(0.)),
-        primary_ionization_(static_cast<float>(0.)),
+        tot_en_dep_(0.0f),
+        ion_en_in_ls_(0.0f),
+        primary_ionization_(0.0f),
 //  primary_ionization_incl_deltas_(0),
-        en_loss_via_deltas_(static_cast<float>(0.)),
-        radiative_en_loss_ (static_cast<float>(0.)),
+        en_loss_via_deltas_(0.0f),
+        radiative_en_loss_ (0.0f),
 
         n_scint_phot_(0),
         n_chere_phot_(0),
@@ -98,7 +98,7 @@ OFOS_OutputNtuples::set_branches()
     truth_tree_->Branch( "primary_ionization", &primary_ionization_ , "primary_ionization_/F"      );
     truth_tree_->Branch( "en_loss_via_deltas", &en_loss_via_deltas_ , "en_loss_via_deltas_/F");
     truth_tree_->Branch( "radiative_en_loss",  &radiative_en_loss_  , "radiative_en_loss_/F");
-//  truth_tree_->Branch( "ion_en_in_ls"      , &ion_en_in_ls_       , "ion_en_in_ls_/F"      );
+  truth_tree_->Branch( "ion_en_in_ls"      , &ion_en_in_ls_       , "ion_en_in_ls_/F"      );
     truth_tree_->Branch( "n_scint_phot"      , &n_scint_phot_       , "n_scint_phot/I");
     truth_tree_->Branch( "n_chere_phot"      , &n_chere_phot_       , "n_chere_phot/I");
     truth_tree_->Branch("track_id"          , track_id_                , "track_id[n_interactions]/I"      );

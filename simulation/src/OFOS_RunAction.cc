@@ -3,6 +3,8 @@
 #include <cstdio>
 #include <time.h>
 #include <fstream>
+#include <sys/time.h>
+#include <random>
 
 #include "G4Run.hh"
 #include "G4RunManager.hh"
@@ -34,30 +36,43 @@
 std::string 
 OFOS_RunAction::get_current_time()
 {
-    time_t raw_time;
-    struct tm * time_info;
+//    time_t raw_time;
+//    struct tm * time_info;
+//
+//    time(&raw_time);  /* get current time */
+//    time_info = localtime (&raw_time);
+//
+//    int year  = time_info->tm_year - 100;
+//    int month = time_info->tm_mon + 1;
+//    int day   = time_info->tm_mday;
+//    int hour  = time_info->tm_hour;
+//    int min   = time_info->tm_min;
+//    int sec   = time_info->tm_sec;
+//
+//
+//    char date[100];
+//    sprintf(date, "%d%s%d%s%d%s%d%s%d%s%d", year,  (month<10 ? "0" : "" ) ,
+//                                            month, (day<10 ? "0": ""),
+//                                            day,   (hour<10 ? "0" : ""),
+//                                            hour,  (min<10 ? "0" : ""),
+//                                            min ,  (sec<10 ? "0": ""),
+//                                            sec);
+//
+//    std::string out(date);
+//    return out;
+	struct timeval tp;
+	gettimeofday(&tp, NULL);
+	long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+	std::string out;
+	out = std::to_string(ms);
 
-    time(&raw_time);  /* get current time */
-    time_info = localtime (&raw_time);
+	std::random_device dev;
+	std::mt19937 rng(dev());
+	std::uniform_int_distribution<> dist(1, 10000);
 
-    int year  = time_info->tm_year - 100;
-    int month = time_info->tm_mon + 1;
-    int day   = time_info->tm_mday;
-    int hour  = time_info->tm_hour;
-    int min   = time_info->tm_min;
-    int sec   = time_info->tm_sec;
+	out = out + dist(rng);
 
-
-    char date[100];
-    sprintf(date, "%d%s%d%s%d%s%d%s%d%s%d", year,  (month<10 ? "0" : "" ) , 
-                                            month, (day<10 ? "0": ""), 
-                                            day,   (hour<10 ? "0" : ""), 
-                                            hour,  (min<10 ? "0" : ""),
-                                            min ,  (sec<10 ? "0": ""),
-                                            sec);
-
-    std::string out(date);
-    return out;
+	return out;
 }
 
 
@@ -110,6 +125,7 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
 
 
     output_hit_file_ = new TFile(out_filename.data(), "recreate");
+	G4cout << "RunAction :: filename = _____ " << out_filename << "_____" << G4endl;
     G4cout << "RunAction :: filename = " << out_filename << G4endl;
 
     G4cout << "Init Ntuples" << G4endl;
