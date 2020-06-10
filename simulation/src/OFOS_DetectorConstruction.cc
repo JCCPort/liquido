@@ -226,30 +226,6 @@ void OFOS_DetectorConstruction::define_materials() {
              16 * m,
              16 * m};
 
-//	G4double fib_att_len[10] =
-//		{0.01 * mm,
-//		 0.01 * mm,
-//		 0.01 * mm,
-//		 0.01 * mm,
-//		 0.01 * mm,
-//		 0.01 * mm,
-//		 0.01 * mm,
-//		 0.01 * mm,
-//		 0.01 * mm,
-//		 0.01 * mm};
-
-//	G4double core_att_len[10] =
-//		{(0.7*4) * mm,
-//		 (0.7*4) * mm,
-//		 (0.7*4) * mm,
-//		 (0.7*4) * mm,
-//		 (0.7*4) * mm,
-//		 (0.7*4) * mm,
-//		 (0.7*4) * mm,
-//		 (0.7*4) * mm,
-//		 (0.7*4) * mm,
-//		 (0.7*4) * mm};
-
     G4double core_att_len[10] =
             {7.0E-1 * mm,
              7.0E-1 * mm,
@@ -768,23 +744,6 @@ OFOS_DetectorConstruction::build_geom() {
                                                        false, 0, fCheckOverlaps);
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // Reflective coating on LS walls
-    auto *coating = new G4OpticalSurface("Coating");
-    coating->SetType(dielectric_metal);
-    coating->SetFinish(polished);
-    coating->SetModel(glisur);
-    auto *skinCoating = new G4LogicalSkinSurface("skinCoating", ls_vessel_l, coating);
-    auto *coatingProperties = new G4MaterialPropertiesTable();
-    coatingProperties->AddConstProperty("REFLECTIVITY", 0.0);
-    coating->SetMaterialPropertiesTable(coatingProperties);
-
-
-=======
->>>>>>> parent of d2df54e... Added reflective coating to vessel walls
-=======
->>>>>>> parent of d2df54e... Added reflective coating to vessel walls
     // LS
     auto *ls_s = new G4Box("LS", 0.5 * ls_x_size, 0.5 * ls_y_size, 0.5 * ls_z_size);
     auto *ls_l = new G4LogicalVolume(ls_s, ls, "LS");
