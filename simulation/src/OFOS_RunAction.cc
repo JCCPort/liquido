@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdio>
-#include <time.h>
+#include <ctime>
 #include <fstream>
 #include <sys/time.h>
 #include <random>
@@ -61,7 +61,7 @@ OFOS_RunAction::get_current_time()
 //    std::string out(date);
 //    return out;
 	struct timeval tp;
-	gettimeofday(&tp, NULL);
+	gettimeofday(&tp, nullptr);
 	long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
 	std::string out;
 	out = std::to_string(ms);
