@@ -618,7 +618,7 @@ OFOS_DetectorConstruction::update_geom() {
 
     /// debug: check the material associated to LS logical volume
     G4LogicalVolumeStore *pLVStore = G4LogicalVolumeStore::GetInstance();
-    G4int nLV = static_cast<G4int>(pLVStore->size());
+    auto nLV = static_cast<G4int>(pLVStore->size());
     G4int iLV = 0;
     G4LogicalVolume *pLV = nullptr;
 

@@ -111,11 +111,11 @@ OFOS_EventAction::process_hit_collections(const G4Event *evt) const {
     collection_container[4] = (OFOS_OPHitCollection *) (HCofEvent->GetHC(hori_sipmt_hit_collection_id_));
 
     /// determine collection size
-    G4int n_vert_fiber_hits = static_cast<G4int>(collection_container[0]->entries());
-    G4int n_hori_fiber_hits = static_cast<G4int>(collection_container[1]->entries());
-    G4int n_vessel_hits = static_cast<G4int>(collection_container[2]->entries());
-    G4int n_vert_sipmt_hits = static_cast<G4int>(collection_container[3]->entries());
-    G4int n_hori_sipmt_hits = static_cast<G4int>(collection_container[4]->entries());
+    auto n_vert_fiber_hits = static_cast<G4int>(collection_container[0]->entries());
+    auto n_hori_fiber_hits = static_cast<G4int>(collection_container[1]->entries());
+    auto n_vessel_hits = static_cast<G4int>(collection_container[2]->entries());
+    auto n_vert_sipmt_hits = static_cast<G4int>(collection_container[3]->entries());
+    auto n_hori_sipmt_hits = static_cast<G4int>(collection_container[4]->entries());
     G4int n_tot_hits = n_vert_fiber_hits + n_hori_fiber_hits + n_vessel_hits + n_vert_sipmt_hits + n_hori_sipmt_hits;
 
 
