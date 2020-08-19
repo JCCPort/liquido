@@ -23,7 +23,7 @@ OFOS_OPHit::OFOS_OPHit() : G4VHit(),
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-OFOS_OPHit::~OFOS_OPHit() {}
+OFOS_OPHit::~OFOS_OPHit() = default;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

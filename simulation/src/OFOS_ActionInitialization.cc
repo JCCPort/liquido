@@ -18,7 +18,7 @@ G4cout << "OFOS_ActionInitialization::" <<G4endl;
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 OFOS_ActionInitialization::~OFOS_ActionInitialization()
-{}
+= default;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 

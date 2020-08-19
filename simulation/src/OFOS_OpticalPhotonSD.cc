@@ -41,7 +41,7 @@ OFOS_OpticalPhotonSD::OFOS_OpticalPhotonSD ( const G4String& name, const G4Strin
 
 
 OFOS_OpticalPhotonSD::~OFOS_OpticalPhotonSD()
-{}
+= default;
 
 
 

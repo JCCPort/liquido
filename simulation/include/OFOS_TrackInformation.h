@@ -34,7 +34,7 @@ public:
 
   explicit OFOS_TrackInformation(const G4Track*);
 
-  ~OFOS_TrackInformation() override {}
+  ~OFOS_TrackInformation() override = default;
   
   inline void *operator new(size_t);
 
@@ -49,13 +49,13 @@ public:
   // Does a smart add of track status flags (disabling old flags that conflict)
   // If s conflicts with itself it will not be detected
   void AddTrackStatusFlag(G4int s);
-  int GetTrackStatus()  {return status;}
+  int GetTrackStatus() const  {return status;}
 
   void SetDrawOption(G4bool b) {drawit = b;}
-  G4bool GetDrawOption() {return drawit;}
+  G4bool GetDrawOption() const {return drawit;}
 
   void SetSaveOption(G4bool b) {saveit = b;}
-  G4bool GetSaveOption() {return saveit;}
+  G4bool GetSaveOption() const {return saveit;}
 
   void Print() const override;
 
