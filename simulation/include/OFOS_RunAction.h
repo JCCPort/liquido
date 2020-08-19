@@ -35,10 +35,10 @@ private:
   
   public:
     explicit OFOS_RunAction( OFOS_DetectorConstruction *det );
-    virtual ~OFOS_RunAction();
+    ~OFOS_RunAction() override;
 
-    virtual void BeginOfRunAction(const G4Run* run);
-    virtual void   EndOfRunAction(const G4Run* run);
+    void BeginOfRunAction(const G4Run* run) override;
+    void   EndOfRunAction(const G4Run* run) override;
 //
     void SetOutputFileName(G4String val){ out_filename=val;}
     static std::string get_current_time();

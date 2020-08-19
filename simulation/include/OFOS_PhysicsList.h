@@ -7,7 +7,7 @@
 class OFOS_PhysicsList: public G4VUserPhysicsList {
 public:
     OFOS_PhysicsList();
-    virtual ~OFOS_PhysicsList();
+    ~OFOS_PhysicsList() override;
     
     void SetSecondaryHad(G4String hadval);
     
@@ -26,9 +26,9 @@ private:
     
 protected:
     // Construct particle and physics process
-    void ConstructParticle();
-    void ConstructProcess();
-    void SetCuts();
+    void ConstructParticle() override;
+    void ConstructProcess() override;
+    void SetCuts() override;
     
 protected:
     // these methods Construct particles

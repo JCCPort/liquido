@@ -21,9 +21,9 @@ class OFOS_PrimaryGeneratorAction : public G4VUserPrimaryGeneratorAction
 {
   public:
     OFOS_PrimaryGeneratorAction();    
-    virtual ~OFOS_PrimaryGeneratorAction();
+    ~OFOS_PrimaryGeneratorAction() override;
 
-    virtual void GeneratePrimaries(G4Event* );
+    void GeneratePrimaries(G4Event* ) override;
 
     // G4ParticleGun* GetParticleGun() {return fParticleGun;}
     G4GeneralParticleSource* GetParticleGun() {return fParticleGun;}
