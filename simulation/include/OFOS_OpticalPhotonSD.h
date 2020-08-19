@@ -18,7 +18,7 @@ enum       g4_op_proc { g4_scintillation=22, g4_cherenkov = 21};
 /// allowing the use of masks on SDType
 inline G4bool operator&( const SDType& lhs, const SDType& rhs) 
 {
-    return ( static_cast<G4int>(lhs) & static_cast<G4int>(rhs) );
+    return ( static_cast<G4bool>(lhs) & static_cast<G4bool>(rhs) );
 }
 
 class OFOS_OpticalPhotonSD : public G4VSensitiveDetector
