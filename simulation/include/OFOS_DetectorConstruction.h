@@ -157,7 +157,7 @@ class OFOS_DetectorConstruction : public G4VUserDetectorConstruction
 
     G4bool  fCheckOverlaps; // option to activate checking of volumes overlaps 
 
-    void set_field();
+    static void set_field();
 };
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
