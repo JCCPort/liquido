@@ -102,8 +102,8 @@ G4bool OFOS_OpticalPhotonSD::process_hit( const G4Step* aStep, const G4Touchable
     G4Track*      theTrack         = aStep->GetTrack();
     G4StepPoint*  thePrePoint      = aStep->GetPreStepPoint();
     G4StepPoint*  thePostPoint     = aStep->GetPostStepPoint();
-    G4ThreeVector polarization     = thePostPoint->GetPolarization();
-    G4ThreeVector position         = thePostPoint->GetPosition();
+    const G4ThreeVector& polarization     = thePostPoint->GetPolarization();
+    const G4ThreeVector& position         = thePostPoint->GetPosition();
     G4int         gen_proc_type    = (theTrack->GetCreatorProcess() ? theTrack->GetCreatorProcess()->GetProcessType()    : my_undefined_proc );
     G4int         gen_proc_subtype = (theTrack->GetCreatorProcess() ? theTrack->GetCreatorProcess()->GetProcessSubType() : my_undefined_proc );
 

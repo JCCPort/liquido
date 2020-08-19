@@ -34,7 +34,7 @@ void OFOS_TrackingAction::PostUserTrackingAction(const G4Track* track)
             proc_subtype  = track->GetCreatorProcess()->GetProcessSubType(); 
         }
 
-        G4ThreeVector start_position = track->GetVertexPosition();
+        const G4ThreeVector& start_position = track->GetVertexPosition();
         G4double      start_time     = track->GetGlobalTime() - track->GetLocalTime() ;
 
         if( OFOS_Verbosity::level>2 )
