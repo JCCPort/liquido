@@ -495,25 +495,8 @@ void OFOS_PhysicsList::SetCuts()
     G4double lowlimit=250*eV;  
     G4ProductionCutsTable::GetProductionCutsTable()->SetEnergyRange(lowlimit,100.*GeV);
     
-    /// set cut values for gamma at first and for e- second and next for e+,
+    /// Might want to add cut values for gamma at first and for e- second and next for e+,
     /// because some processes for e+/e- need cut values for gamma
-     
-    double cut_em = defaultCutValue;
-    G4double cut_had= defaultCutValue;
-    G4double cut_ion= 1000*mm;
-    
-   
-    /// NO REASON AT THE MOMENT TO OVERRIDE DEFULT CUT VALUES
- // SetCutValue(gammaCutValue, "gamma");
- // SetCutValue(electronCutValue, "e-");
- // SetCutValue(electronCutValue, "e+");
- // 
- // SetCutValue(cut_had, "proton");
- // SetCutValue(cut_had, "anti_proton");
- // SetCutValue(cut_had, "neutron");
- // 
- // SetCutValue(cut_ion, "alpha");
- // SetCutValue(cut_ion, "GenericIon");
 
     SetCutsWithDefault(); 
     
