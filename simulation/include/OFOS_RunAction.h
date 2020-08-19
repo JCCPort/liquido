@@ -25,7 +25,6 @@ class OFOS_RunAction : public G4UserRunAction
 {
 
 
-  void InitRootFile();
   G4String out_filename;
   G4String log_filename;
   G4String geom_filename;
@@ -36,12 +35,11 @@ private:
   
   public:
     explicit OFOS_RunAction( OFOS_DetectorConstruction *det );
-    virtual ~OFOS_RunAction();
+    ~OFOS_RunAction() override;
 
-    virtual void BeginOfRunAction(const G4Run* run);
-    virtual void   EndOfRunAction(const G4Run* run);
+    void BeginOfRunAction(const G4Run* run) override;
+    void   EndOfRunAction(const G4Run* run) override;
 //
-    void InitTree();
     void SetOutputFileName(G4String val){ out_filename=val;}
     static std::string get_current_time();
     void ComputeElectronCriticalEnergy();

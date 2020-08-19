@@ -34,7 +34,7 @@ public:
 
   explicit OFOS_TrackInformation(const G4Track*);
 
-  virtual ~OFOS_TrackInformation() {}
+  ~OFOS_TrackInformation() override {}
   
   inline void *operator new(size_t);
 
@@ -57,7 +57,7 @@ public:
   void SetSaveOption(G4bool b) {saveit = b;}
   G4bool GetSaveOption() {return saveit;}
 
-  void Print() const;
+  void Print() const override;
 
 
 private:

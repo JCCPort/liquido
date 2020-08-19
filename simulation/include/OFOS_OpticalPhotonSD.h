@@ -25,12 +25,12 @@ class OFOS_OpticalPhotonSD : public G4VSensitiveDetector
 {
   public:
     OFOS_OpticalPhotonSD(const G4String& name, const G4String& hitsCollectionName, SDType type = SDType::Undefined);
-    virtual ~OFOS_OpticalPhotonSD();
+    ~OFOS_OpticalPhotonSD() override;
   
     // methods from base class
-    virtual void   Initialize  (G4HCofThisEvent* hitCollection);
-    virtual G4bool ProcessHits (G4Step* step, G4TouchableHistory* history);
-    virtual void   EndOfEvent (G4HCofThisEvent* hitCollection);
+    void   Initialize  (G4HCofThisEvent* hitCollection) override;
+    G4bool ProcessHits (G4Step* step, G4TouchableHistory* history) override;
+    void   EndOfEvent (G4HCofThisEvent* hitCollection) override;
 
     /// this meethod could in principle be avoided: from the stepping action
     /// the hit could sent directly to the OutputNtuples class to be stored
