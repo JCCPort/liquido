@@ -33,7 +33,7 @@ public:
 
 private:
  
-    G4int process_hit_collections ( const G4Event* evt );
+    G4int process_hit_collections ( const G4Event* evt ) const;
     static void fetch_event_info( const G4Event* evt );
 
 };

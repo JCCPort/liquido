@@ -30,7 +30,7 @@ OFOS_OutputNtuples::OFOS_OutputNtuples(const char *h_name, const char *h_title, 
 }
 
 void
-OFOS_OutputNtuples::write()
+OFOS_OutputNtuples::write() const
 {
     hit_tree_->Write();
     truth_tree_->Write();

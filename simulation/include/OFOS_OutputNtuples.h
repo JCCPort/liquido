@@ -13,7 +13,7 @@ class OFOS_OutputNtuples
         ~OFOS_OutputNtuples();
         void init_arrays();
         void set_branches();
-        void write() ;
+        void write() const ;
         bool fill_all_branches( double value);
         void store_event() ;
 

@@ -92,7 +92,7 @@ OFOS_EventAction::EndOfEventAction(const G4Event* event)
 
 
 G4int
-OFOS_EventAction::process_hit_collections ( const G4Event* evt )
+OFOS_EventAction::process_hit_collections ( const G4Event* evt ) const
 {
     if ( OFOS_Verbosity::level>1)
         G4cout << "EventAction::process_hit_collections()" << G4endl;

@@ -34,7 +34,7 @@ class OFOS_LsMatProperties
         OFOS_LsMatProperties();
         ~OFOS_LsMatProperties();
 
-        inline int get_n_data() { return n_data_; } ;
+        inline int get_n_data() const { return n_data_; } ;
 
         void set_dummy_energy();
         inline double* get_energy() {return energy_;} ;
@@ -54,15 +54,15 @@ class OFOS_LsMatProperties
         void set_dummy_absorption( double value );
         inline double* get_absorption() {return absorption_; } ;
 
-        inline double get_light_yield     (){ return light_yield_      ;} ;
-        inline double get_resolution_scale(){ return resolution_scale_ ;} ;
-        inline double get_fast_time_const (){ return fast_time_const_  ;} ;
-        inline double get_slow_time_const (){ return slow_time_const_  ;} ;
-        inline double get_yield_ratio     (){ return yield_ratio_      ;} ;
-        inline double get_birks_const     (){ return birks_const_      ;} ;
+        inline double get_light_yield     () const{ return light_yield_      ;} ;
+        inline double get_resolution_scale() const{ return resolution_scale_ ;} ;
+        inline double get_fast_time_const () const{ return fast_time_const_  ;} ;
+        inline double get_slow_time_const () const{ return slow_time_const_  ;} ;
+        inline double get_yield_ratio     () const{ return yield_ratio_      ;} ;
+        inline double get_birks_const     () const{ return birks_const_      ;} ;
 
-        inline double    get_density         (){ return density_; } ;
-        inline double    get_loading_fraction(){ return loading_fraction_; } ;
+        inline double    get_density         () const{ return density_; } ;
+        inline double    get_loading_fraction() const{ return loading_fraction_; } ;
         inline G4String& get_loading_material(){ return loading_material_; } ;
 
         inline void set_light_yield     (double value){ light_yield_      = value; } ;
