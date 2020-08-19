@@ -618,7 +618,7 @@ OFOS_DetectorConstruction::update_geom() {
 
     /// debug: check the material associated to LS logical volume
     G4LogicalVolumeStore *pLVStore = G4LogicalVolumeStore::GetInstance();
-    G4int nLV = pLVStore->size();
+    G4int nLV = static_cast<G4int>(pLVStore->size());
     G4int iLV = 0;
     G4LogicalVolume *pLV = nullptr;
 
@@ -1107,7 +1107,7 @@ OFOS_DetectorConstruction::build_geom() {
 
     // Visualization attributes
     auto *vis_white = new G4VisAttributes(white);
-    auto *vis_gray = new G4VisAttributes(gray);
+    auto *vis_gray = new G4VisAttributes(grey);
     auto *vis_black = new G4VisAttributes(black);
     auto *vis_red = new G4VisAttributes(red);
     auto *vis_green = new G4VisAttributes(green);
@@ -1231,7 +1231,7 @@ OFOS_DetectorConstruction::check_geom_params() {
     }
 
 
-    if (not(number_ru_x_ > 0)) {
+    if (number_ru_x_ <= 0) {
         sprintf(line, "Invalid number_ru_x_(%d)", number_ru_x_);
         G4Exception("OFOS_DetectorConstruction::check_geom_params()",
                     "001",
@@ -1239,7 +1239,7 @@ OFOS_DetectorConstruction::check_geom_params() {
                     line);
     }
 
-    if (not(number_ru_y_ > 0)) {
+    if (number_ru_y_ <= 0) {
         sprintf(line, "Invalid number_ru_y_(%d)", number_ru_y_);
         G4Exception("OFOS_DetectorConstruction::check_geom_params()",
                     "001",
@@ -1247,7 +1247,7 @@ OFOS_DetectorConstruction::check_geom_params() {
                     line);
     }
 
-    if (not(number_ru_z_ > 0)) {
+    if (number_ru_z_ <= 0) {
         sprintf(line, "Invalid number_ru_z_(%d)", number_ru_z_);
         G4Exception("OFOS_DetectorConstruction::check_geom_params()",
                     "001",
@@ -1256,7 +1256,7 @@ OFOS_DetectorConstruction::check_geom_params() {
     }
 
 
-    if (not(vert_ru_distance_ > 0.)) {
+    if (vert_ru_distance_ <= 0.) {
         sprintf(line, "Invalid vert_ru_distance_(%f mm)", vert_ru_distance_ / mm);
         G4Exception("OFOS_DetectorConstruction::check_geom_params()",
                     "001",
@@ -1272,7 +1272,7 @@ OFOS_DetectorConstruction::check_geom_params() {
                     line);
     }
 
-    if (not(hori_ru_distance_ > 0.)) {
+    if (hori_ru_distance_ <= 0.) {
         sprintf(line, "Invalid hori_ru_distance_(%f mm)", hori_ru_distance_ / mm);
         G4Exception("OFOS_DetectorConstruction::check_geom_params()",
                     "001",
