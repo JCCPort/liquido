@@ -73,19 +73,6 @@ void OFOS_OpticalPhotonSD::Initialize(G4HCofThisEvent* event_container)
 /***********************************************************************************/
 
 
-G4bool OFOS_OpticalPhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
-{
-    // if( OFOS_Verbosity::level > 2 )
-    //     G4cout << "OFOS_OpticalPhotonSD::ProcessHits >>> DOING NOTHING" << G4endl;
-
-    return false;
-}
-
-
-/***********************************************************************************/
-/***********************************************************************************/
-
-
 G4bool OFOS_OpticalPhotonSD::process_hit( const G4Step* aStep, const G4TouchableHistory* )
 {
     if( OFOS_Verbosity::level > 3 )
