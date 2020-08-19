@@ -53,8 +53,8 @@ void OFOS_TrackingAction::PostUserTrackingAction(const G4Track *track) {
                                              interaction_id,
                                              pdgid,
                                              start_position,
-                                             0., // dE
-                                             0.,
-                                             start_time);
+                                             static_cast<float>(0.), // dE
+                                             static_cast<float>(0.),
+                                             static_cast<float>(start_time));
     }
 }
