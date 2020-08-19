@@ -34,7 +34,7 @@ public:
 
   explicit OFOS_TrackInformation(const G4Track*);
 
-  ~OFOS_TrackInformation() override {}
+  ~OFOS_TrackInformation() override = default;
   
   inline void *operator new(size_t);
 
