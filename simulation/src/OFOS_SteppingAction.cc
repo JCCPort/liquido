@@ -128,7 +128,7 @@ void OFOS_SteppingAction::UserSteppingAction(const G4Step *theStep) {
 
         /// debug output
         if (OFOS_Verbosity::level > 2) {
-            post_step_proc_list += G4String(TString::Format(">p>  [%d] %x ", iProc, (*procPost)[iProc]).Data());
+            post_step_proc_list += G4String(TString::Format(">p>  [%zu]%px ", iProc, (*procPost)[iProc]).Data());
             post_step_proc_list += (*procPost)[iProc]->GetProcessName();
             post_step_proc_list += G4String(TString::Format(" (%d / %d)\n",
                                                             static_cast<G4int>(proc_type),

@@ -233,7 +233,7 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
     {
         G4VProcess *a_proc = (*proc_list)[i];
 
-        double sigma = emCalculator.ComputeCrossSectionPerVolume( gamma_en, gamma , a_proc->GetProcessName() , LXe )/LXe->GetDensity();;
+        double sigma = emCalculator.ComputeCrossSectionPerVolume( gamma_en, gamma , a_proc->GetProcessName() , LXe )/LXe->GetDensity();
         tot_sigma += sigma;
         OFOS_OutputLog::log_cache << a_proc->GetProcessName(); 
 
