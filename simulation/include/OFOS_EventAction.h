@@ -17,7 +17,7 @@ class OFOS_EventAction : public G4UserEventAction
 
 public:
   OFOS_EventAction();
-  ~OFOS_EventAction() override;
+  virtual ~OFOS_EventAction();
   
 
   // data members
@@ -27,8 +27,8 @@ public:
    G4int  hori_sipmt_hit_collection_id_;
    G4int  vessel_hit_collection_id_;
 
-  void  BeginOfEventAction(const G4Event* ) override;
-  void    EndOfEventAction(const G4Event* ) override;
+  virtual void  BeginOfEventAction(const G4Event* );
+  virtual void    EndOfEventAction(const G4Event* );
   
 
 private:

@@ -19,9 +19,9 @@ class OFOS_DetectorMessenger: public G4UImessenger
 {
   public:
     explicit OFOS_DetectorMessenger( OFOS_DetectorConstruction *det );
-    ~OFOS_DetectorMessenger() override;
+    virtual ~OFOS_DetectorMessenger();
     
-    void SetNewValue(G4UIcommand*, G4String) override;
+    virtual void SetNewValue(G4UIcommand*, G4String);
     
   private:
     OFOS_DetectorConstruction *det_;

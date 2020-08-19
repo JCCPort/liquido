@@ -41,7 +41,7 @@ OFOS_OpticalPhotonSD::OFOS_OpticalPhotonSD ( const G4String& name, const G4Strin
 
 
 OFOS_OpticalPhotonSD::~OFOS_OpticalPhotonSD()
-= default;
+{}
 
 
 
@@ -67,6 +67,19 @@ void OFOS_OpticalPhotonSD::Initialize(G4HCofThisEvent* event_container)
                << "Coll ID: "   <<  hcID << G4endl;
 }
 
+
+
+/***********************************************************************************/
+/***********************************************************************************/
+
+
+G4bool OFOS_OpticalPhotonSD::ProcessHits(G4Step* aStep, G4TouchableHistory*)
+{
+    // if( OFOS_Verbosity::level > 2 )
+    //     G4cout << "OFOS_OpticalPhotonSD::ProcessHits >>> DOING NOTHING" << G4endl;
+
+    return false;
+}
 
 
 /***********************************************************************************/

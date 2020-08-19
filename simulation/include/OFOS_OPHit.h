@@ -14,7 +14,7 @@ class OFOS_OPHit : public G4VHit
 public:
     OFOS_OPHit();
     OFOS_OPHit(const OFOS_OPHit&);
-    ~OFOS_OPHit() override;
+    virtual ~OFOS_OPHit();
     
     // operators
     const OFOS_OPHit& operator=(const OFOS_OPHit&);
@@ -24,8 +24,8 @@ public:
     inline void  operator delete(void*);
     
     // methods from base class
-    void Draw() override;
-    void Print() override;
+    virtual void Draw();
+    virtual void Print();
     
     // Set methods
     void set_track_id     (G4int id)           { track_id_    = id; };

@@ -19,9 +19,9 @@ class OFOS_SteppingAction : public G4UserSteppingAction
   public:
 
     explicit OFOS_SteppingAction(OFOS_DetectorConstruction*);
-    ~OFOS_SteppingAction() override;
+    virtual ~OFOS_SteppingAction();
 
-    void UserSteppingAction(const G4Step*) override;
+    virtual void UserSteppingAction(const G4Step*);
  
   private:
 

@@ -33,10 +33,10 @@ class OFOS_DetectorConstruction : public G4VUserDetectorConstruction
 {
   public:
     OFOS_DetectorConstruction();
-    ~OFOS_DetectorConstruction() override;
+    virtual ~OFOS_DetectorConstruction();
 
-    G4VPhysicalVolume* Construct() override;
-    void ConstructSDandField() override;
+    virtual G4VPhysicalVolume* Construct();
+    virtual void ConstructSDandField();
 
     // Set methods
 

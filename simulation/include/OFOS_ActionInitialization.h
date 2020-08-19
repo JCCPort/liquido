@@ -14,10 +14,10 @@ class OFOS_ActionInitialization : public G4VUserActionInitialization
 {
   public:
     explicit OFOS_ActionInitialization( OFOS_DetectorConstruction* det );
-    ~OFOS_ActionInitialization() override;
+    virtual ~OFOS_ActionInitialization();
 
-    void BuildForMaster() const override;
-    void Build() const override;
+    virtual void BuildForMaster() const;
+    virtual void Build() const;
 
   private :
     OFOS_DetectorConstruction* fDetector;

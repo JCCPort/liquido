@@ -81,7 +81,6 @@ OFOS_EventAction::EndOfEventAction(const G4Event* event)
     if ( hori_sipmt_hit_collection_id_ == -1 ) hori_sipmt_hit_collection_id_ = G4SDManager::GetSDMpointer()->GetCollectionID("HoriSiPmtHitsCollection");
 
     process_hit_collections( event );
-    fetch_event_info(event);
     global_ntuples_ptr->store_event();
 
 }
