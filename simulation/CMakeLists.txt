@@ -3,19 +3,15 @@
 #----------------------------------------------------------------------------
 # Setup the project
 #
-cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.7 FATAL_ERROR)
 project(OFOS)
+set(CMAKE_CXX_STANDARD 14)
 
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
 # You can set WITH_GEANT4_UIVIS to OFF via the command line or ccmake/cmake-gui
 # to build a batch mode only executable
 #
-
-#set(CMAKE_PREFIX_PATH /cm/shared/apps/tbb/2020.3/cmake/TBBMakeConfig.cmake)
-#find_package(TBB REQUIRED)
-
-#find_package(TBB REQUIRED)
 
 option(WITH_GEANT4_UIVIS "Build example with Geant4 UI and Vis drivers" ON)
 
@@ -32,13 +28,6 @@ set(CMAKE_PREFIX_PATH /home/geant)
 include(${Geant4_USE_FILE})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-#list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
-#find_package(ROOT REQUIRED COMPONENTS)
-#include(${ROOT_USE_FILE})
-#include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-#ROOT_GENERATE_DICTIONARY(G__Event Event.h LINKDEF EventLinkDef.h)
-
-#list(APPEND CMAKE_PREFIX_PATH $ENV{LD_LIBRARY_PATH})
 #----------------------------------------------------------------------------
 # Locate sources and headers for this project
 # NB: headers are included so they will show up in IDEs
@@ -68,7 +57,6 @@ add_executable(ofos ofos.cc ${sources} ${headers})
 
 EXECUTE_PROCESS(COMMAND root-config --libs OUTPUT_VARIABLE ROOT_LD_FLAGS OUTPUT_STRIP_TRAILING_WHITESPACE)
 set(CMAKE_EXE_LINKER_FLAGS ${ROOT_LD_FLAGS})
-#message("${ROOT_LD_FLAGS}")
 
 ### standard G4
 target_link_libraries(ofos ${Geant4_LIBRARIES})
@@ -79,7 +67,6 @@ set(CMAKE_PREFIX_PATH ${ROOTSYS})
 find_package(ROOT REQUIRED COMPONENTS)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-###ROOT_GENERATE_DICTIONARY(G__Event Event.h LINKDEF EventLinkDef.h)
 target_link_libraries(ofos ${ROOT_LIBRARIES})
 include(${ROOT_USE_FILE})
 

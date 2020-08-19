@@ -32,10 +32,8 @@
 #include "OFOS_PrimaryGeneratorAction.h"
 
 
-
-std::string 
-OFOS_RunAction::get_current_time()
-{
+std::string
+OFOS_RunAction::get_current_time() {
 //    time_t raw_time;
 //    struct tm * time_info;
 //
@@ -60,63 +58,59 @@ OFOS_RunAction::get_current_time()
 //
 //    std::string out(date);
 //    return out;
-	struct timeval tp;
-	gettimeofday(&tp, nullptr);
-	long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
-	std::string out;
-	out = std::to_string(ms);
+    struct timeval tp;
+    gettimeofday(&tp, nullptr);
+    long int ms = tp.tv_sec * 1000 + tp.tv_usec / 1000;
+    std::string out;
+    out = std::to_string(ms);
 
-	std::random_device dev;
-	std::mt19937 rng(dev());
-	std::uniform_int_distribution<> dist(1, 10000);
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<> dist(1, 10000);
 
-	out = out + dist(rng);
+    out = out + dist(rng);
 
-	return out;
+    return out;
 }
 
 
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-OFOS_RunAction::OFOS_RunAction( OFOS_DetectorConstruction *det ):
-    G4UserRunAction(), // ,messenger(0)
-    output_hit_file_(nullptr),
-    detector_( det )
-{ 
+OFOS_RunAction::OFOS_RunAction(OFOS_DetectorConstruction *det) :
+        G4UserRunAction(), // ,messenger(0)
+        output_hit_file_(nullptr),
+        detector_(det) {
     G4cout << "OFOS_RunAction::OFOS_RunAction()" << G4endl;
     // set printing event number per each 100 events
-    G4RunManager::GetRunManager()->SetPrintProgress(1);     
+    G4RunManager::GetRunManager()->SetPrintProgress(1);
 
     // messenger = new LIMbuSRunActionMessenger(this); 
-    
-    if(OFOS_Verbosity::level>0)
+
+    if (OFOS_Verbosity::level > 0)
         G4cout << G4endl << "OFOS_RunAction::OFOS_RunAction::CreateNtuple" << G4endl << G4endl;
 
 
 }
 
 
-
-OFOS_RunAction::~OFOS_RunAction()
-{
+OFOS_RunAction::~OFOS_RunAction() {
 
     delete global_ntuples_ptr;
     global_ntuples_ptr = nullptr;
 
-    if(OFOS_Verbosity::level>0)
-	G4cout << "OFOS_RunAction deleted" << G4endl;
+    if (OFOS_Verbosity::level > 0)
+        G4cout << "OFOS_RunAction deleted" << G4endl;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
-{ 
+void OFOS_RunAction::BeginOfRunAction(const G4Run *a_run) {
 
     std::string current_time = get_current_time();
 
     char run_name[100];
-    sprintf (run_name, "_%d", a_run->GetRunID());
+    sprintf(run_name, "_%d", a_run->GetRunID());
 
     out_filename = "OFOS_";
     out_filename += current_time;
@@ -125,19 +119,18 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
 
 
     output_hit_file_ = new TFile(out_filename.data(), "recreate");
-	G4cout << "RunAction :: filename = _____ " << out_filename << "_____" << G4endl;
+    G4cout << "RunAction :: filename = _____ " << out_filename << "_____" << G4endl;
     G4cout << "RunAction :: filename = " << out_filename << G4endl;
 
     G4cout << "Init Ntuples" << G4endl;
-    global_ntuples_ptr = new OFOS_OutputNtuples( "op_hits"  , "Optical Photon Hits"          , int(1e7),
-                                                 "mc_truth" , "Electromagnetic Interactions" , int(1e7));
+    global_ntuples_ptr = new OFOS_OutputNtuples("op_hits", "Optical Photon Hits", int(1e7),
+                                                "mc_truth", "Electromagnetic Interactions", int(1e7));
 
-    
+
     out_filename = "OFOS_output_";
     out_filename += current_time;
     out_filename += run_name;
     out_filename += ".root";
-
 
 
     log_filename = "OFOS_";
@@ -145,8 +138,8 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
     log_filename += run_name;
     log_filename += "_log.txt";
 
-    OFOS_OutputLog::logfile = new std::ofstream(log_filename); 
- // OutputLog::logfile = 0;
+    OFOS_OutputLog::logfile = new std::ofstream(log_filename);
+    // OutputLog::logfile = 0;
 
 
     geom_filename = "OFOS_";
@@ -154,7 +147,7 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
     geom_filename += run_name;
     geom_filename += "_geom.txt";
 
-    OFOS_OutputLog::geom_logfile = new std::ofstream(geom_filename); 
+    OFOS_OutputLog::geom_logfile = new std::ofstream(geom_filename);
 
 
     OFOS_OutputLog::log_cache << G4endl;
@@ -163,29 +156,28 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
     OFOS_OutputLog::log_cache << "***************************************" << G4endl;
 
 
-    G4double density     = detector_->get_ls_material()->GetDensity();  
-    G4double radl        = detector_->get_ls_material()->GetRadlen();
+    G4double density = detector_->get_ls_material()->GetDensity();
+    G4double radl = detector_->get_ls_material()->GetRadlen();
 
-    OFOS_OutputLog::log_cache << "LS Material: " <<  detector_->get_ls_material()->GetName() << G4endl;
-    OFOS_OutputLog::log_cache << "Density:                             " << G4BestUnit(density,"Volumic Mass") << G4endl;
-    OFOS_OutputLog::log_cache << "Rad length:                          " << G4BestUnit(radl,   "Length") << G4endl;
+    OFOS_OutputLog::log_cache << "LS Material: " << detector_->get_ls_material()->GetName() << G4endl;
+    OFOS_OutputLog::log_cache << "Density:                             " << G4BestUnit(density, "Volumic Mass")
+                              << G4endl;
+    OFOS_OutputLog::log_cache << "Rad length:                          " << G4BestUnit(radl, "Length") << G4endl;
 
     ComputeElectronCriticalEnergy();
 
 
-
-    
-    auto* elementXe = new G4Element("Xenon","Xe",54.,131.29*g/mole);
-    auto* LXe = new G4Material ("LXe�",3.02*g/cm3, 1, kStateLiquid, 173.15*kelvin, 1.5*atmosphere);
-    LXe -> AddElement(elementXe, 1);
+    auto *elementXe = new G4Element("Xenon", "Xe", 54., 131.29 * g / mole);
+    auto *LXe = new G4Material("LXe�", 3.02 * g / cm3, 1, kStateLiquid, 173.15 * kelvin, 1.5 * atmosphere);
+    LXe->AddElement(elementXe, 1);
 
 
 
     // PRINT GAMMA CROSS SECTIONS AT 2 MEV
     double gamma_en = 2.0 * MeV;
-    G4ParticleDefinition *gamma     = G4Gamma::Gamma();
-    G4ProcessManager     *proc_mng  = gamma->GetProcessManager();
-    G4ProcessVector      *proc_list = proc_mng->GetProcessList () ;
+    G4ParticleDefinition *gamma = G4Gamma::Gamma();
+    G4ProcessManager *proc_mng = gamma->GetProcessManager();
+    G4ProcessVector *proc_list = proc_mng->GetProcessList();
 
     G4EmCalculator emCalculator;
 
@@ -197,27 +189,27 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
     double phot_sigma = 0;
 
     OFOS_OutputLog::log_cache << G4endl << "Gamma cross section per process (at 2MeV) " << G4endl;
-    OFOS_OutputLog::log_cache << G4endl << "***** LAB *****"  << G4endl;
-    for(int i=0; i<proc_list->size(); ++i)
-    {
+    OFOS_OutputLog::log_cache << G4endl << "***** LAB *****" << G4endl;
+    for (int i = 0; i < proc_list->size(); ++i) {
         G4VProcess *a_proc = (*proc_list)[i];
 
-        double sigma = emCalculator.ComputeCrossSectionPerVolume( gamma_en, gamma , a_proc->GetProcessName() , detector_->get_ls_material() )/density;
+        double sigma = emCalculator.ComputeCrossSectionPerVolume(gamma_en, gamma, a_proc->GetProcessName(),
+                                                                 detector_->get_ls_material()) / density;
         tot_sigma += sigma;
-        OFOS_OutputLog::log_cache << a_proc->GetProcessName(); 
+        OFOS_OutputLog::log_cache << a_proc->GetProcessName();
 
-        if( a_proc->GetProcessName() == "phot" ) phot_sigma = sigma;
+        if (a_proc->GetProcessName() == "phot") phot_sigma = sigma;
 
         /// formatting output
         unsigned long s_size = (a_proc->GetProcessName()).size();
-        for( unsigned long j=0; j<(37-s_size); ++j) OFOS_OutputLog::log_cache << " ";
+        for (unsigned long j = 0; j < (37 - s_size); ++j) OFOS_OutputLog::log_cache << " ";
 
-        OFOS_OutputLog::log_cache << G4BestUnit(sigma, "Surface/Mass") << G4endl; 
+        OFOS_OutputLog::log_cache << G4BestUnit(sigma, "Surface/Mass") << G4endl;
     }
 
-    OFOS_OutputLog::log_cache << "Total                                " 
+    OFOS_OutputLog::log_cache << "Total                                "
                               << G4BestUnit(tot_sigma, "Surface/Mass") << G4endl;
-    OFOS_OutputLog::log_cache << "Photofraction                        " 
+    OFOS_OutputLog::log_cache << "Photofraction                        "
                               << phot_sigma / tot_sigma << G4endl;
 
 
@@ -228,26 +220,26 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
     tot_sigma = 0;
     phot_sigma = 0;
 
-    OFOS_OutputLog::log_cache << G4endl << G4endl << "***** LXe ***** (for comparison)"  << G4endl;
-    for(int i=0; i<proc_list->size(); ++i)
-    {
+    OFOS_OutputLog::log_cache << G4endl << G4endl << "***** LXe ***** (for comparison)" << G4endl;
+    for (int i = 0; i < proc_list->size(); ++i) {
         G4VProcess *a_proc = (*proc_list)[i];
 
-        double sigma = emCalculator.ComputeCrossSectionPerVolume( gamma_en, gamma , a_proc->GetProcessName() , LXe )/LXe->GetDensity();
+        double sigma = emCalculator.ComputeCrossSectionPerVolume(gamma_en, gamma, a_proc->GetProcessName(), LXe) /
+                       LXe->GetDensity();
         tot_sigma += sigma;
-        OFOS_OutputLog::log_cache << a_proc->GetProcessName(); 
+        OFOS_OutputLog::log_cache << a_proc->GetProcessName();
 
-        if( a_proc->GetProcessName() == "phot" ) phot_sigma = sigma;
+        if (a_proc->GetProcessName() == "phot") phot_sigma = sigma;
 
         /// formatting output
         unsigned long s_size = (a_proc->GetProcessName()).size();
-        for( unsigned long j=0; j<(37-s_size); ++j) OFOS_OutputLog::log_cache << " ";
+        for (unsigned long j = 0; j < (37 - s_size); ++j) OFOS_OutputLog::log_cache << " ";
 
-        OFOS_OutputLog::log_cache << G4BestUnit(sigma, "Surface/Mass") << G4endl; 
+        OFOS_OutputLog::log_cache << G4BestUnit(sigma, "Surface/Mass") << G4endl;
     }
-    OFOS_OutputLog::log_cache << "Total                                " 
+    OFOS_OutputLog::log_cache << "Total                                "
                               << G4BestUnit(tot_sigma, "Surface/Mass") << G4endl;
-    OFOS_OutputLog::log_cache << "Photofraction                        " 
+    OFOS_OutputLog::log_cache << "Photofraction                        "
                               << phot_sigma / tot_sigma << G4endl;
 
 
@@ -264,71 +256,65 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
 }
 
 
-
 /// from Geant4-10.4.0/examples/extended/electromagnetic/TestEm0
-void OFOS_RunAction::ComputeElectronCriticalEnergy()
-{
+void OFOS_RunAction::ComputeElectronCriticalEnergy() {
 
     // compute e- critical energy (Rossi definition) and Moliere radius.
     // Review of Particle Physics - Eur. Phys. J. C3 (1998) page 147
     //
     G4EmCalculator emCal;
-      
-    const G4Material* material = detector_->get_ls_material();
+
+    const G4Material *material = detector_->get_ls_material();
     const G4double radl = material->GetRadlen();
-    G4double ekin = 5*MeV;
+    G4double ekin = 5 * MeV;
     G4double deioni;
-    G4double err  = 1., errmax = 0.001;
-    G4int    iter = 0 , itermax = 10;  
-    while (err > errmax && iter < itermax) 
-    {
-        iter++;          
-        deioni  = radl*
-                  emCal.ComputeDEDX(ekin,G4Electron::Electron(),"eIoni",material);
-        err = std::abs(deioni - ekin)/ekin;
+    G4double err = 1., errmax = 0.001;
+    G4int iter = 0, itermax = 10;
+    while (err > errmax && iter < itermax) {
+        iter++;
+        deioni = radl *
+                 emCal.ComputeDEDX(ekin, G4Electron::Electron(), "eIoni", material);
+        err = std::abs(deioni - ekin) / ekin;
         ekin = deioni;
     }
 
-    OFOS_OutputLog::log_cache << "Critical Energy (Rossi):            "  << std::setw(8) << G4BestUnit(ekin,"Energy") << G4endl;
-           
+    OFOS_OutputLog::log_cache << "Critical Energy (Rossi):            " << std::setw(8) << G4BestUnit(ekin, "Energy")
+                              << G4endl;
+
     //Pdg formula (only for single material)
-    G4double pdga[2] = { 610*MeV, 710*MeV };
-    G4double pdgb[2] = { 1.24, 0.92 };
+    G4double pdga[2] = {610 * MeV, 710 * MeV};
+    G4double pdgb[2] = {1.24, 0.92};
     G4double EcPdg = 0.;
-    
+
     if (material->GetNumberOfElements() == 1) {
-      G4int istat = 0;
-      if (material->GetState() == kStateGas) istat = 1;  
-      G4double Zeff = material->GetZ() + pdgb[istat];
-      EcPdg = pdga[istat]/Zeff;
-      G4cout << "\t\t\t (from Pdg formula : " 
-             << std::setw(8) << G4BestUnit(EcPdg,"Energy") << ")";    
+        G4int istat = 0;
+        if (material->GetState() == kStateGas) istat = 1;
+        G4double Zeff = material->GetZ() + pdgb[istat];
+        EcPdg = pdga[istat] / Zeff;
+        G4cout << "\t\t\t (from Pdg formula : "
+               << std::setw(8) << G4BestUnit(EcPdg, "Energy") << ")";
     }
-       
 
-    const G4double Es = 21.2052*MeV;
-    G4double rMolier1 = Es/ekin, rMolier2 = rMolier1*radl;
 
- // OFOS_OutputLog::log_cache << "Moliere Radius:                      "  << std::setw(8) << rMolier1 << G4endl
- //                           << "X0 = "  << std::setw(8) << G4BestUnit(rMolier2,"Length") << G4endl;
-           
-    if (material->GetNumberOfElements() == 1) 
-    {
-       G4double rMPdg = radl*Es/EcPdg;
-       G4cout << "\t (from Pdg formula : " 
-              << std::setw(8) << G4BestUnit(rMPdg,"Length") << ")";    
-     }         
+    const G4double Es = 21.2052 * MeV;
+    G4double rMolier1 = Es / ekin, rMolier2 = rMolier1 * radl;
+
+    // OFOS_OutputLog::log_cache << "Moliere Radius:                      "  << std::setw(8) << rMolier1 << G4endl
+    //                           << "X0 = "  << std::setw(8) << G4BestUnit(rMolier2,"Length") << G4endl;
+
+    if (material->GetNumberOfElements() == 1) {
+        G4double rMPdg = radl * Es / EcPdg;
+        G4cout << "\t (from Pdg formula : "
+               << std::setw(8) << G4BestUnit(rMPdg, "Length") << ")";
+    }
 
 
 }
 
 
-
-
-void OFOS_RunAction::EndOfRunAction(const G4Run* )
-{
- // global_ntuples_ptr->write(); <-- It causes the tree headers to be written twice since
- //                                  tree->write() method is implicitly called by file->write()
+void OFOS_RunAction::EndOfRunAction(const G4Run *) {
+    // global_ntuples_ptr->write(); <-- It causes the tree headers to be written twice since
+    //                                  tree->write() method is implicitly called by file->write()
     output_hit_file_->Write();
     output_hit_file_->Close();
 
@@ -341,9 +327,9 @@ void OFOS_RunAction::EndOfRunAction(const G4Run* )
 
     G4cout << "EndOfRunAction :: all files closed " << G4endl;
 
- // delete global_ntuples_ptr; <-- NOT ALLOWED
+    // delete global_ntuples_ptr; <-- NOT ALLOWED
     global_ntuples_ptr = nullptr;
-    
+
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

@@ -10,8 +10,10 @@
 //use code from G4 extended optical LXe example for Track Status
 
 
-enum TrackStatus { active=1, hitPMT=2, absorbed=4, boundaryAbsorbed=8,
-		   inactive=28, wcReflected = 32, GlassRebound=40 };
+enum TrackStatus {
+    active = 1, hitPMT = 2, absorbed = 4, boundaryAbsorbed = 8,
+    inactive = 28, wcReflected = 32, GlassRebound = 40
+};
 
 /*TrackStatus:
   active: still being tracked
@@ -27,43 +29,45 @@ enum TrackStatus { active=1, hitPMT=2, absorbed=4, boundaryAbsorbed=8,
 class OFOS_TrackInformation : public G4VUserTrackInformation {
 
 public:
-  OFOS_TrackInformation(): saveit(false), drawit(false), status(active) {}
+    OFOS_TrackInformation() : saveit(false), drawit(false), status(active) {}
 
-  //  TrackInformation(const TrackInformation* aninfo) 
-  // { saveit = aninfo->saveit;}
+    //  TrackInformation(const TrackInformation* aninfo)
+    // { saveit = aninfo->saveit;}
 
-  explicit OFOS_TrackInformation(const G4Track*);
+    explicit OFOS_TrackInformation(const G4Track *);
 
-  ~OFOS_TrackInformation() override = default;
-  
-  inline void *operator new(size_t);
+    ~OFOS_TrackInformation() override = default;
 
-  inline void operator delete(void *aTrackInfo);
+    inline void *operator new(size_t);
 
-  inline int operator ==(const OFOS_TrackInformation& right) const
-  {return (this==&right);}
-  
-  // Sets the track status to s (does not check validity of flags)
-  void SetTrackStatusFlags(G4int s){status=s;}
+    inline void operator delete(void *aTrackInfo);
 
-  // Does a smart add of track status flags (disabling old flags that conflict)
-  // If s conflicts with itself it will not be detected
-  void AddTrackStatusFlag(G4int s);
-  int GetTrackStatus() const  {return status;}
+    inline int operator==(const OFOS_TrackInformation &right) const { return (this == &right); }
 
-  void SetDrawOption(G4bool b) {drawit = b;}
-  G4bool GetDrawOption() const {return drawit;}
+    // Sets the track status to s (does not check validity of flags)
+    void SetTrackStatusFlags(G4int s) { status = s; }
 
-  void SetSaveOption(G4bool b) {saveit = b;}
-  G4bool GetSaveOption() const {return saveit;}
+    // Does a smart add of track status flags (disabling old flags that conflict)
+    // If s conflicts with itself it will not be detected
+    void AddTrackStatusFlag(G4int s);
 
-  void Print() const override;
+    int GetTrackStatus() const { return status; }
+
+    void SetDrawOption(G4bool b) { drawit = b; }
+
+    G4bool GetDrawOption() const { return drawit; }
+
+    void SetSaveOption(G4bool b) { saveit = b; }
+
+    G4bool GetSaveOption() const { return saveit; }
+
+    void Print() const override;
 
 
 private:
-  G4bool saveit; 
-  G4bool drawit;
-  G4int  status; 
+    G4bool saveit;
+    G4bool drawit;
+    G4int status;
 
 };
 
@@ -71,14 +75,14 @@ private:
 extern G4Allocator<OFOS_TrackInformation> aTrackInfoAllocator;
 
 
-inline void* OFOS_TrackInformation::operator new(size_t) { 
-  void* aTrackInfo;
-  aTrackInfo = (void*)aTrackInfoAllocator.MallocSingle();
-  return aTrackInfo;
+inline void *OFOS_TrackInformation::operator new(size_t) {
+    void *aTrackInfo;
+    aTrackInfo = (void *) aTrackInfoAllocator.MallocSingle();
+    return aTrackInfo;
 }
 
-inline void OFOS_TrackInformation::operator delete(void *aTrackInfo){ 
-  aTrackInfoAllocator.FreeSingle((OFOS_TrackInformation*)aTrackInfo);
+inline void OFOS_TrackInformation::operator delete(void *aTrackInfo) {
+    aTrackInfoAllocator.FreeSingle((OFOS_TrackInformation *) aTrackInfo);
 }
 
 

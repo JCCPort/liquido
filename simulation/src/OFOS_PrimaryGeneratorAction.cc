@@ -15,53 +15,50 @@
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-OFOS_PrimaryGeneratorAction::OFOS_PrimaryGeneratorAction() : G4VUserPrimaryGeneratorAction()
-{
-  G4int nofParticles = 1;
+OFOS_PrimaryGeneratorAction::OFOS_PrimaryGeneratorAction() : G4VUserPrimaryGeneratorAction() {
+    G4int nofParticles = 1;
 //fParticleGun = new G4ParticleGun(nofParticles);
-  fParticleGun = new G4GeneralParticleSource();
+    fParticleGun = new G4GeneralParticleSource();
 
-  // default particle kinematic
+    // default particle kinematic
 
-  G4ParticleDefinition* particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("proton");
+    G4ParticleDefinition *particleDefinition = G4ParticleTable::GetParticleTable()->FindParticle("proton");
 
-  fParticleGun->SetParticleDefinition(particleDefinition);
+    fParticleGun->SetParticleDefinition(particleDefinition);
 //fParticleGun->SetParticleMomentumDirection(G4ThreeVector(0.,0.,1.));
 //fParticleGun->SetParticleEnergy(3.0*GeV);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-OFOS_PrimaryGeneratorAction::~OFOS_PrimaryGeneratorAction()
-{
-  delete fParticleGun;
+OFOS_PrimaryGeneratorAction::~OFOS_PrimaryGeneratorAction() {
+    delete fParticleGun;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
-void OFOS_PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
-{
-  // This function is called at the begining of event
+void OFOS_PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent) {
+    // This function is called at the begining of event
 
-  // In order to avoid dependence of PrimaryGeneratorAction
-  // on DetectorConstruction class we get world volume
-  // from G4LogicalVolumeStore.
+    // In order to avoid dependence of PrimaryGeneratorAction
+    // on DetectorConstruction class we get world volume
+    // from G4LogicalVolumeStore.
 
-  G4double worldZHalfLength = 0;
-  G4LogicalVolume* worldLV
-    = G4LogicalVolumeStore::GetInstance()->GetVolume("World");
-  G4Box* worldBox = nullptr;
-  if ( worldLV ) worldBox = dynamic_cast<G4Box*>(worldLV->GetSolid());
-  if ( worldBox ) worldZHalfLength = worldBox->GetZHalfLength();
-  else  {
-    G4cerr << "World volume of box not found." << G4endl;
-    G4cerr << "Perhaps you have changed geometry." << G4endl;
-    G4cerr << "The gun will be place in the center." << G4endl;
-  }
+    G4double worldZHalfLength = 0;
+    G4LogicalVolume *worldLV
+            = G4LogicalVolumeStore::GetInstance()->GetVolume("World");
+    G4Box *worldBox = nullptr;
+    if (worldLV) worldBox = dynamic_cast<G4Box *>(worldLV->GetSolid());
+    if (worldBox) worldZHalfLength = worldBox->GetZHalfLength();
+    else {
+        G4cerr << "World volume of box not found." << G4endl;
+        G4cerr << "Perhaps you have changed geometry." << G4endl;
+        G4cerr << "The gun will be place in the center." << G4endl;
+    }
 
-  fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., -worldZHalfLength));
+    fParticleGun->SetParticlePosition(G4ThreeVector(0., 0., -worldZHalfLength));
 
-  fParticleGun->GeneratePrimaryVertex(anEvent);
+    fParticleGun->GeneratePrimaryVertex(anEvent);
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......

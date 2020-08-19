@@ -6,12 +6,13 @@
 
 class OFOS_TrackingAction : public G4UserTrackingAction {
 
-  public:  
-    OFOS_TrackingAction( );
-   ~OFOS_TrackingAction() override = default;;
-   
-    void PostUserTrackingAction(const G4Track*) override;
-    
+public:
+    OFOS_TrackingAction();
+
+    ~OFOS_TrackingAction() override = default;;
+
+    void PostUserTrackingAction(const G4Track *) override;
+
 //private:
 //  PrimaryGeneratorAction* fPrimary;
 };

@@ -1,10 +1,9 @@
 #ifndef OFOS_Verbosity_h
 #define OFOS_Verbosity_h
 
-class OFOS_Verbosity
-{
+class OFOS_Verbosity {
 public:
-        static int level;
+    static int level;
 };
 
 #endif

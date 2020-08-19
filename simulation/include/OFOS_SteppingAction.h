@@ -9,27 +9,29 @@ class OFOS_DetectorConstruction;
 //class OFOS_SteppingActionMessenger;
 
 class G4Track;
+
 class G4StepPoint;
+
 class G4OpBoundaryProcess;
 
 //enum g4_subprocesses{ OpAbsorption=31, Compton=13, Photoelectric=12, Bremsstrahlung=3, Cherenkov=21, Scintillation=22 };
 
-class OFOS_SteppingAction : public G4UserSteppingAction
-{
-  public:
+class OFOS_SteppingAction : public G4UserSteppingAction {
+public:
 
-    explicit OFOS_SteppingAction(OFOS_DetectorConstruction*);
+    explicit OFOS_SteppingAction(OFOS_DetectorConstruction *);
+
     ~OFOS_SteppingAction() override;
 
-    void UserSteppingAction(const G4Step*) override;
- 
-  private:
+    void UserSteppingAction(const G4Step *) override;
+
+private:
 
     // maximum number of save states
     static G4int fMaxRndmSave;
- 
-    OFOS_DetectorConstruction* fDetector;
-    
+
+    OFOS_DetectorConstruction *fDetector;
+
 
 };
 

@@ -32,7 +32,9 @@
 #include "OFOS_ActionInitialization.h"
 
 #ifdef G4MULTITHREADED
+
 #include "G4MTRunManager.hh"
+
 #else
 #include "G4RunManager.hh"
 #endif
@@ -49,60 +51,59 @@
 #include "G4PhysListFactory.hh"
 
 #include "OFOS_Verbosity.h"
-#include "OFOS_OutputNtuples.h" 
+#include "OFOS_OutputNtuples.h"
 #include "OFOS_GlobalNtuplesPtr.h"
 
 
 OFOS_OutputNtuples *global_ntuples_ptr;
 
-int main(int argc,char** argv)
-{
-  // Detect interactive mode (if no arguments) and define UI session
-  //
+int main(int argc, char **argv) {
+    // Detect interactive mode (if no arguments) and define UI session
+    //
 
 
-  OFOS_Verbosity::level = 0;
-  global_ntuples_ptr = nullptr;
+    OFOS_Verbosity::level = 0;
+    global_ntuples_ptr = nullptr;
 
 
-  G4UIExecutive* ui = nullptr;
-  if ( argc == 1 ) {
-    ui = new G4UIExecutive(argc, argv);
-  }
+    G4UIExecutive *ui = nullptr;
+    if (argc == 1) {
+        ui = new G4UIExecutive(argc, argv);
+    }
 
-  // Choose the Random engine
-  G4Random::setTheEngine(new CLHEP::RanecuEngine);
+    // Choose the Random engine
+    G4Random::setTheEngine(new CLHEP::RanecuEngine);
 
-  // Construct the default run manager
-  //
+    // Construct the default run manager
+    //
 
-  auto* runManager = new G4RunManager;
+    auto *runManager = new G4RunManager;
 
-  auto * det = new OFOS_DetectorConstruction();
+    auto *det = new OFOS_DetectorConstruction();
 
-  // Set mandatory initialization classes
-  //
-  runManager->SetUserInitialization(det);
+    // Set mandatory initialization classes
+    //
+    runManager->SetUserInitialization(det);
 
 //G4VModularPhysicsList* physicsList = new FTFP_BERT;
 //physicsList->RegisterPhysics(new G4StepLimiterPhysics());
 
-  /// customized physics list, inherited by Stefano
-  auto *physicsList = new OFOS_PhysicsList;
-  runManager->SetUserInitialization(physicsList);
+    /// customized physics list, inherited by Stefano
+    auto *physicsList = new OFOS_PhysicsList;
+    runManager->SetUserInitialization(physicsList);
 
-  /// Now using standard physics list
-  /// LBE seems the be the only suitable to simulate optical photons and radioactive decays
-  /// cf geant4.in2p3.fr/IMG/pdf_PhysicsLists.pdf
+    /// Now using standard physics list
+    /// LBE seems the be the only suitable to simulate optical photons and radioactive decays
+    /// cf geant4.in2p3.fr/IMG/pdf_PhysicsLists.pdf
 //G4PhysListFactory *physListFactory = new G4PhysListFactory();
 //G4VUserPhysicsList *physicsList = physListFactory->GetReferencePhysList("LBE");
 //runManager->SetUserInitialization(physicsList);
 
 
-  // Set user action classes
-  runManager->SetUserInitialization(new OFOS_ActionInitialization(det));
+    // Set user action classes
+    runManager->SetUserInitialization(new OFOS_ActionInitialization(det));
 
-  // >>> MY DEBUG <<<<
+    // >>> MY DEBUG <<<<
 //G4cout << "runManager->InitializeGeometry()" << G4endl;
 //runManager->InitializeGeometry();
 
@@ -118,47 +119,46 @@ int main(int argc,char** argv)
 
 
 
-  // Initialize visualization
-  //
-  G4VisManager* visManager = new G4VisExecutive ();
-  if(OFOS_Verbosity::level==2)
-      visManager->SetVerboseLevel("Quiet");
+    // Initialize visualization
+    //
+    G4VisManager *visManager = new G4VisExecutive();
+    if (OFOS_Verbosity::level == 2)
+        visManager->SetVerboseLevel("Quiet");
 
-  // G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.
-  // G4VisManager* visManager = new G4VisExecutive("Quiet");
-  G4cout << "Initialize visual manager" << G4endl;
-  visManager->Initialize();
+    // G4VisExecutive can take a verbosity argument - see /vis/verbose guidance.
+    // G4VisManager* visManager = new G4VisExecutive("Quiet");
+    G4cout << "Initialize visual manager" << G4endl;
+    visManager->Initialize();
 
-  // Get the pointer to the User Interface manager
-  G4UImanager* UImanager = G4UImanager::GetUIpointer();
+    // Get the pointer to the User Interface manager
+    G4UImanager *UImanager = G4UImanager::GetUIpointer();
 
-  // Process macro or start UI session
-  //
-  if ( ! ui ) {
-    // batch mode
-    G4cout << "Exectute " << argv[1] << G4endl;
-    G4String command = "/control/execute ";
-    G4String fileName = argv[1];
-    UImanager->ApplyCommand(command+fileName);
-    G4cout << argv[1] << " Execution : Done" << G4endl;
-  }
-  else {  
-    // interactive mode
-    UImanager->ApplyCommand("/control/execute init_vis.mac");
-    if (ui->IsGUI()) {
-      UImanager->ApplyCommand("/control/execute gui.mac");
+    // Process macro or start UI session
+    //
+    if (!ui) {
+        // batch mode
+        G4cout << "Exectute " << argv[1] << G4endl;
+        G4String command = "/control/execute ";
+        G4String fileName = argv[1];
+        UImanager->ApplyCommand(command + fileName);
+        G4cout << argv[1] << " Execution : Done" << G4endl;
+    } else {
+        // interactive mode
+        UImanager->ApplyCommand("/control/execute init_vis.mac");
+        if (ui->IsGUI()) {
+            UImanager->ApplyCommand("/control/execute gui.mac");
+        }
+        ui->SessionStart();
+        delete ui;
     }
-    ui->SessionStart();
-    delete ui;
-  }
 
-  // Job termination
-  // Free the store: user actions, physics_list and detector_description are
-  // owned and deleted by the run manager, so they should not be deleted
-  // in the main() program !
+    // Job termination
+    // Free the store: user actions, physics_list and detector_description are
+    // owned and deleted by the run manager, so they should not be deleted
+    // in the main() program !
 
-  delete visManager;
-  delete runManager;
+    delete visManager;
+    delete runManager;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo.....

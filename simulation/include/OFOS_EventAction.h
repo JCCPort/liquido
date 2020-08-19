@@ -12,32 +12,33 @@
 
 
 
-class OFOS_EventAction : public G4UserEventAction
-{
+class OFOS_EventAction : public G4UserEventAction {
 
 public:
-  OFOS_EventAction();
-  ~OFOS_EventAction() override;
-  
+    OFOS_EventAction();
 
-  // data members
-   G4int  vert_fiber_hit_collection_id_;
-   G4int  hori_fiber_hit_collection_id_;
-   G4int  vert_sipmt_hit_collection_id_;
-   G4int  hori_sipmt_hit_collection_id_;
-   G4int  vessel_hit_collection_id_;
+    ~OFOS_EventAction() override;
 
-  void  BeginOfEventAction(const G4Event* ) override;
-  void    EndOfEventAction(const G4Event* ) override;
-  
+
+    // data members
+    G4int vert_fiber_hit_collection_id_;
+    G4int hori_fiber_hit_collection_id_;
+    G4int vert_sipmt_hit_collection_id_;
+    G4int hori_sipmt_hit_collection_id_;
+    G4int vessel_hit_collection_id_;
+
+    void BeginOfEventAction(const G4Event *) override;
+
+    void EndOfEventAction(const G4Event *) override;
+
 
 private:
- 
-    G4int process_hit_collections ( const G4Event* evt ) const;
-    static void fetch_event_info( const G4Event* evt );
+
+    G4int process_hit_collections(const G4Event *evt) const;
+
+    static void fetch_event_info(const G4Event *evt);
 
 };
-
 
 
 #endif
