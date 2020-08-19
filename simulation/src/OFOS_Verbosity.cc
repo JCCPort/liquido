@@ -1,3 +1,3 @@
 #include "OFOS_Verbosity.h"
 
-int OFOS_Verbosity::level = 0;
+int OFOS_Verbosity::level = 3;
