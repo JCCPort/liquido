@@ -66,15 +66,15 @@ void OFOS_PhysicsList::ConstructParticle()
     /// basically all the families except for the short-lived one
     /// http://geant4.cern.ch/G4UsersDocuments/UsersGuides/ForApplicationDeveloper/html/GettingStarted/particleDef.html DEADLINK
     G4LeptonConstructor leptonConstructor;
-                        leptonConstructor.ConstructParticle();
+                        G4LeptonConstructor::ConstructParticle();
     G4MesonConstructor  mesonConstructor;
-                        mesonConstructor.ConstructParticle();
+                        G4MesonConstructor::ConstructParticle();
     G4BaryonConstructor baryonConstructor;
-                        baryonConstructor.ConstructParticle();
+                        G4BaryonConstructor::ConstructParticle();
     G4BosonConstructor  bosonConstructor;
-                        bosonConstructor.ConstructParticle();
+                        G4BosonConstructor::ConstructParticle();
     G4IonConstructor    ionConstructor;
-                        ionConstructor.ConstructParticle();
+                        G4IonConstructor::ConstructParticle();
 
 
     /// not present in OpNovicePhysicsList

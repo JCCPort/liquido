@@ -186,22 +186,22 @@ OFOS_DetectorMessenger::~OFOS_DetectorMessenger()
 void OFOS_DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
 {
     if( command == absorption_length_cmd_ )
-        { det_->set_ls_dummy_absorption(absorption_length_cmd_->GetNewDoubleValue(newValue));}
+        { det_->set_ls_dummy_absorption(G4UIcmdWithADoubleAndUnit::GetNewDoubleValue(newValue));}
     
     if( command == scattering_length_cmd_ )
-        { det_->set_ls_dummy_scattering(scattering_length_cmd_->GetNewDoubleValue(newValue));}
+        { det_->set_ls_dummy_scattering(G4UIcmdWithADoubleAndUnit::GetNewDoubleValue(newValue));}
 
     if( command == light_yield_cmd_ )
-        { det_->set_ls_light_yield(light_yield_cmd_->GetNewDoubleValue(newValue));}
+        { det_->set_ls_light_yield(G4UIcmdWithADouble::GetNewDoubleValue(newValue));}
 
     if( command == birks_cmd_ )
-        { det_->set_ls_birks(birks_cmd_->GetNewDoubleValue(newValue));}
+        { det_->set_ls_birks(G4UIcmdWithADouble::GetNewDoubleValue(newValue));}
 
     if( command == density_cmd_ )
-        { det_->set_ls_density(density_cmd_->GetNewDoubleValue(newValue));}
+        { det_->set_ls_density(G4UIcmdWithADouble::GetNewDoubleValue(newValue));}
 
     if( command == loading_fraction_cmd_ )
-        { det_->set_ls_loading_fraction(loading_fraction_cmd_->GetNewDoubleValue(newValue));}
+        { det_->set_ls_loading_fraction(G4UIcmdWithADouble::GetNewDoubleValue(newValue));}
 
     if( command == loading_material_cmd_ )
         { det_->set_ls_loading_material(newValue);}
@@ -212,13 +212,13 @@ void OFOS_DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
  //     { det_->deploy_ls_properties(); }
 
     if( command == num_ru_x_cmd_ )
-        det_->set_number_ru_x   ( num_ru_x_cmd_->GetNewIntValue(newValue) );
+        det_->set_number_ru_x   ( G4UIcmdWithAnInteger::GetNewIntValue(newValue) );
 
     if( command == num_ru_y_cmd_ )
-        det_->set_number_ru_y   ( num_ru_y_cmd_->GetNewIntValue(newValue) );
+        det_->set_number_ru_y   ( G4UIcmdWithAnInteger::GetNewIntValue(newValue) );
 
     if( command == num_ru_z_cmd_ )
-        det_->set_number_ru_z   ( num_ru_z_cmd_->GetNewIntValue(newValue) );
+        det_->set_number_ru_z   ( G4UIcmdWithAnInteger::GetNewIntValue(newValue) );
 
     if( command == vert_ru_geom_cmd_ )
         det_->set_vert_ru_geometry( newValue );
@@ -227,25 +227,25 @@ void OFOS_DetectorMessenger::SetNewValue(G4UIcommand* command,G4String newValue)
         det_->set_hori_ru_geometry ( newValue );
 
     if( command == vert_ru_distance_cmd_ )
-        det_->set_vert_ru_dist   ( vert_ru_distance_cmd_->GetNewDoubleValue(newValue) ); 
+        det_->set_vert_ru_dist   ( G4UIcmdWithADoubleAndUnit::GetNewDoubleValue(newValue) );
 
     if( command == hori_ru_distance_cmd_ )
-        det_->set_hori_ru_dist    ( hori_ru_distance_cmd_->GetNewDoubleValue(newValue) );  
+        det_->set_hori_ru_dist    ( G4UIcmdWithADoubleAndUnit::GetNewDoubleValue(newValue) );
 
     if( command == vert_ru_size_cmd_ )
-        det_->set_vert_ru_size    ( vert_ru_size_cmd_->GetNewDoubleValue(newValue) );  
+        det_->set_vert_ru_size    ( G4UIcmdWithADoubleAndUnit::GetNewDoubleValue(newValue) );
 
     if( command == hori_ru_size_cmd_ )
-        det_->set_hori_ru_size     ( hori_ru_size_cmd_->GetNewDoubleValue(newValue) );  
+        det_->set_hori_ru_size     ( G4UIcmdWithADoubleAndUnit::GetNewDoubleValue(newValue) );
 
     if( command == fiber_rad_cmd_ )
-        det_->set_fiber_radius  ( fiber_rad_cmd_->GetNewDoubleValue(newValue) );
+        det_->set_fiber_radius  ( G4UIcmdWithADoubleAndUnit::GetNewDoubleValue(newValue) );
 
     if( command == outer_cladding_cmd_ )
-        det_->set_outer_cladding_fractional_radius  ( outer_cladding_cmd_->GetNewDoubleValue(newValue) );
+        det_->set_outer_cladding_fractional_radius  ( G4UIcmdWithADouble::GetNewDoubleValue(newValue) );
 
     if( command == inner_cladding_cmd_ )
-        det_->set_inner_cladding_fractional_radius  ( inner_cladding_cmd_->GetNewDoubleValue(newValue) ); 
+        det_->set_inner_cladding_fractional_radius  ( G4UIcmdWithADouble::GetNewDoubleValue(newValue) );
 
     if( command == build_geometry_cmd_ )
     {
