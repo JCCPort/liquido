@@ -209,8 +209,8 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
         if( a_proc->GetProcessName() == "phot" ) phot_sigma = sigma;
 
         /// formatting output
-        int s_size = (a_proc->GetProcessName()).size();
-        for( int j=0; j<(37-s_size); ++j) OFOS_OutputLog::log_cache << " ";
+        unsigned long s_size = (a_proc->GetProcessName()).size();
+        for( unsigned long j=0; j<(37-s_size); ++j) OFOS_OutputLog::log_cache << " ";
 
         OFOS_OutputLog::log_cache << G4BestUnit(sigma, "Surface/Mass") << G4endl; 
     }
@@ -240,8 +240,8 @@ void OFOS_RunAction::BeginOfRunAction(const G4Run* a_run)
         if( a_proc->GetProcessName() == "phot" ) phot_sigma = sigma;
 
         /// formatting output
-        int s_size = (a_proc->GetProcessName()).size();
-        for( int j=0; j<(37-s_size); ++j) OFOS_OutputLog::log_cache << " ";
+        unsigned long s_size = (a_proc->GetProcessName()).size();
+        for( unsigned long j=0; j<(37-s_size); ++j) OFOS_OutputLog::log_cache << " ";
 
         OFOS_OutputLog::log_cache << G4BestUnit(sigma, "Surface/Mass") << G4endl; 
     }

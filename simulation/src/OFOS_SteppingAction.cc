@@ -323,9 +323,10 @@ void OFOS_SteppingAction::UserSteppingAction(const G4Step *theStep) {
                                                  100,
                                                  particleDefinition->GetPDGEncoding(),
                                                  thePostPoint->GetPosition(),
-                                                 thePrePoint->GetKineticEnergy() - thePostPoint->GetKineticEnergy(),
-                                                 thePrePoint->GetTotalEnergy(),
-                                                 theTrack->GetGlobalTime());
+                                                 static_cast<float>(thePrePoint->GetKineticEnergy() -
+                                                                    thePostPoint->GetKineticEnergy()),
+                                                 static_cast<float>(thePrePoint->GetTotalEnergy()),
+                                                 static_cast<float>(theTrack->GetGlobalTime()));
 
         }
     }
@@ -401,9 +402,9 @@ void OFOS_SteppingAction::UserSteppingAction(const G4Step *theStep) {
                                                      interaction_id,
                                                      particleDefinition->GetPDGEncoding(),
                                                      thePostPoint->GetPosition(),
-                                                     dE,
-                                                     thePrePoint->GetTotalEnergy(),
-                                                     theTrack->GetGlobalTime());
+                                                     static_cast<float>(dE),
+                                                     static_cast<float>(thePrePoint->GetTotalEnergy()),
+                                                     static_cast<float>(theTrack->GetGlobalTime()));
 
             }
             break; // case G4ProcessType::fElectromagnetic
@@ -426,7 +427,7 @@ void OFOS_SteppingAction::UserSteppingAction(const G4Step *theStep) {
                                                      PDGEEncoding,
                                                      thePostPoint->GetPosition(),
                                                      static_cast<float>(dE),
-                                                     thePrePoint->GetTotalEnergy(),
+                                                     static_cast<float>(thePrePoint->GetTotalEnergy()),
                                                      static_cast<float>(theTrack->GetGlobalTime()));
             }
             break;
