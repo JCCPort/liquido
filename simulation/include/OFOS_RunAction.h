@@ -3,6 +3,7 @@
 #define OFOS_RunAction_h 1
 
 #include <string>
+#include <utility>
 
 #include "G4UserRunAction.hh"
 #include "globals.hh"
@@ -40,7 +41,7 @@ private:
     void BeginOfRunAction(const G4Run* run) override;
     void   EndOfRunAction(const G4Run* run) override;
 //
-    void SetOutputFileName(G4String val){ out_filename=val;}
+    void SetOutputFileName(G4String val){ out_filename=std::move(val);}
     static std::string get_current_time();
     void ComputeElectronCriticalEnergy();
 
