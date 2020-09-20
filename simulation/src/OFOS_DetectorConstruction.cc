@@ -33,6 +33,7 @@
 #include "OFOS_Verbosity.h"
 #include "OFOS_LsMatProperties.h"
 #include "OFOS_OutputLog.h"
+#include "G4GDMLParser.hh"
 
 
 /******************
@@ -594,7 +595,11 @@ OFOS_DetectorConstruction::update_geom() {
         OFOS_OutputLog::log_cache << "OFOS_DetectorConstruction::update_geom() :: updating geometry" << G4endl;
 
     /// update detector geometry
-    G4RunManager::GetRunManager()->DefineWorldVolume(build_geom());
+    auto newGeom = build_geom();
+    G4GDMLParser parser;
+    // write!
+    parser.Write("shoot_positron.gdml", newGeom,false);
+    G4RunManager::GetRunManager()->DefineWorldVolume(newGeom);
 
     if (OFOS_Verbosity::level > 1)
         OFOS_OutputLog::log_cache << "OFOS_DetectorConstruction::update_geom() :: updating sensitive volumes" << G4endl;
